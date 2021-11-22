@@ -1,4 +1,5 @@
 import assert from "./helpers/assert";
+import run from "./run";
 
 const startButtons = (Array
   .from(document.querySelectorAll(".new-button"))
@@ -19,5 +20,11 @@ const speedrunBtn = (
 
 speedrunBtn.href = "#";
 speedrunBtn.textContent = "Speedrun";
+
+speedrunBtn.addEventListener("click", () => {
+  if (window.location.pathname === "/sets/view/104") {
+    run();
+  }
+});
 
 export {};

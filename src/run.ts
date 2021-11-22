@@ -13,7 +13,7 @@ type State = {
   }[],
 };
 
-async function run() {
+export default async function run() {
   document.documentElement.innerHTML = "";
   document.body.style.margin = "0";
 
@@ -110,6 +110,34 @@ async function run() {
     state.text = "load detected";
     render();
 
+    const activePath = activeIframe.contentWindow!.location.pathname;
+    const unloadIframe = activeIframe;
+
+    unloadIframe.contentWindow!.addEventListener("unload", () => {
+      const intervalId = setInterval(() => {
+        if (unloadIframe.parentElement === null) {
+          clearInterval(intervalId);
+          return;
+        }
+
+        const path = unloadIframe.contentWindow?.location.pathname;
+
+        if (path === undefined) {
+          return;
+        }
+
+        if (path !== activePath) {
+          const newHref = unloadIframe.contentWindow?.location.href;
+          unloadIframe.remove();
+          window.location.href = newHref ?? path;
+        }
+      }, 100);
+
+      setTimeout(() => {
+        clearInterval(intervalId);
+      }, 5000);
+    });
+
     startTime = startTime ?? Date.now();
 
     doc = activeIframe.contentDocument!;
@@ -163,7 +191,3 @@ async function run() {
     activeIframe = bufferIframe;
   }
 }
-
-run();
-
-export {};

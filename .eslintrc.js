@@ -40,5 +40,8 @@ module.exports = {
 
     // Doesn't work with typescript?
     "import/no-unused-modules": "off",
+
+    "newline-after-var": "off",
+    "newline-before-return": "off",
   },
 };
