@@ -150,7 +150,7 @@ export default async function run(problemUrls: string[]) {
     const nextProblemUrl = problemUrls[problemUrlIndex++];
 
     if (nextProblemUrl !== nil) {
-      bufferIframe.src = problemUrls[problemUrlIndex++];
+      bufferIframe.src = nextProblemUrl;
     } else {
       // Show finish screen
     }
