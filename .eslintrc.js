@@ -45,5 +45,14 @@ module.exports = {
     "newline-before-return": "off",
     "id-length": "off",
     "no-negated-condition": "off",
+    "no-use-before-define": "off",
+    "no-restricted-syntax": "off",
+    "import/prefer-default-export": "off",
+    "import/exports-last": "off",
+
+    // Covered by typescript
+    "no-undef": "off",
+
+    "multiline-ternary": "off",
   },
 };

@@ -1,6 +1,6 @@
-/* eslint-disable import/no-unused-modules */
-
 import nil from "./helpers/nil";
+import renderProblemStats from "./renderProblemStats";
+import renderTime from "./renderTime";
 import shuffle from "./helpers/shuffle";
 
 type State = {
@@ -12,11 +12,22 @@ type State = {
     time: number;
     mistakes: number;
   }[],
+  problemStats: {
+    url: string,
+    name: string,
+    time: number,
+    mistakes: number,
+  }[],
 };
 
-export default async function run(problemUrls: string[]) {
-  problemUrls = shuffle(problemUrls);
-  let problemUrlIndex = 0;
+export type Problem = {
+  name: string;
+  url: string;
+};
+
+export default async function run(problems: Problem[]) {
+  problems = shuffle(problems);
+  let problemIndex = 0;
 
   document.documentElement.innerHTML = "";
   document.body.style.margin = "0";
@@ -44,17 +55,10 @@ export default async function run(problemUrls: string[]) {
     mistakes: 0,
     text: "",
     checkpoints: [],
+    problemStats: [],
   };
 
   let startTime: number | nil = nil;
-
-  function renderTime(time: number, mistakes: number) {
-    time += mistakes * 60000;
-    const min = Math.floor(time / 60000);
-    const sec = Math.floor((time - 60000 * min) / 1000);
-
-    return `${min}:${sec.toString().padStart(2, "0")}`;
-  }
 
   function render() {
     display.innerHTML = "";
@@ -73,6 +77,8 @@ export default async function run(problemUrls: string[]) {
         ].join(" ")}`,
       ),
     ].join("\n");
+
+    display.append(renderProblemStats(state.problemStats));
   }
 
   render();
@@ -91,7 +97,7 @@ export default async function run(problemUrls: string[]) {
 
   let activeIframe = Iframe();
 
-  activeIframe.src = problemUrls[problemUrlIndex++];
+  activeIframe.src = problems[problemIndex++].url;
 
   while (true) {
     activeIframe.style.display = "";
@@ -111,6 +117,10 @@ export default async function run(problemUrls: string[]) {
 
     state.text = "load detected";
     render();
+
+    const problemStart = Date.now();
+    const currentProblem = problems[problemIndex];
+    let currentProblemMistakes = 0;
 
     const activePath = activeIframe.contentWindow!.location.pathname;
     const unloadIframe = activeIframe;
@@ -147,7 +157,7 @@ export default async function run(problemUrls: string[]) {
 
     const bufferIframe = Iframe();
 
-    const nextProblemUrl = problemUrls[problemUrlIndex++];
+    const nextProblemUrl = problems[problemIndex++].url;
 
     if (nextProblemUrl !== nil) {
       bufferIframe.src = nextProblemUrl;
@@ -157,6 +167,7 @@ export default async function run(problemUrls: string[]) {
 
     resetBtn.addEventListener("click", () => {
       state.mistakes++;
+      currentProblemMistakes++;
       render();
     });
 
@@ -187,6 +198,13 @@ export default async function run(problemUrls: string[]) {
         mistakes: state.mistakes,
       });
     }
+
+    state.problemStats.push({
+      url: currentProblem.url,
+      name: currentProblem.name,
+      time: Date.now() - problemStart,
+      mistakes: currentProblemMistakes,
+    });
 
     render();
 

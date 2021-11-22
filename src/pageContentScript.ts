@@ -1,3 +1,4 @@
+import ProblemSetName from "./ProblemSetName";
 import assert from "./helpers/assert";
 import run from "./run";
 
@@ -22,12 +23,17 @@ speedrunBtn.href = "#";
 speedrunBtn.textContent = "Speedrun";
 
 speedrunBtn.addEventListener("click", () => {
-  const problemUrls = (Array
+  const problemSetName = ProblemSetName();
+
+  const problems = (Array
     .from(document.querySelectorAll(".homeRight li > a"))
-    .map((el) => (el as HTMLAnchorElement).href)
+    .map((el) => ({
+      name: `${problemSetName} #${el.textContent}`,
+      url: (el as HTMLAnchorElement).href,
+    }))
   );
 
-  run(problemUrls).catch((error) => {
+  run(problems).catch((error) => {
     setTimeout(() => {
       throw error;
     });
