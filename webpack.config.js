@@ -7,7 +7,8 @@ const CopyPlugin = require("copy-webpack-plugin");
 const config = {
   common: {
     entry: {
-      index: "./dist/src/index.js",
+      contentScript: "./dist/src/contentScript.js",
+      pageContentScript: "./dist/src/pageContentScript.js",
     },
     module: {
       rules: [

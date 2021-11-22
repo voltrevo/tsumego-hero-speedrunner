@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+
+  "name": "Tsumego Hero Speedrunner",
+  "description": "Adds speedrunning features to tsumego-hero.com",
+  "version": "0.0.0",
+
+  "icons": {},
+
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "pageContentScript.bundle.js",
+        "css/*"
+      ],
+      "matches": ["https://tsumego-hero.com/*"]
+    }
+  ],
+
+  "permissions": [],
+
+  "action": {
+    "default_icon": {},
+    "default_title": "Tsumego Hero Speedrunner"
+  },
+
+  "content_scripts": [{
+    "matches": ["https://tsumego-hero.com/*"],
+    "js": ["contentScript.bundle.js"],
+    "run_at": "document_end"
+  }]
+}
