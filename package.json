@@ -26,11 +26,13 @@
   },
   "homepage": "https://github.com/voltrevo/tsumego-hero-speedrunner#readme",
   "dependencies": {
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "eslint-config-airbnb-as-warnings": "^0.1.0",
+    "@typescript-eslint/parser": "^5.4.0",
     "eslint": "^8.3.0",
     "eslint-config-airbnb": "^19.0.0",
     "typescript": "^4.5.2"
-  },
-  "devDependencies": {
-    "eslint-config-airbnb-as-warnings": "^0.1.0"
   }
 }

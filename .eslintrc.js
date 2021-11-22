@@ -7,9 +7,10 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  parserOptions: {
-    ecmaVersion: 2021,
-  },
+  parser: "@typescript-eslint/parser",
+  plugins: [
+    "@typescript-eslint",
+  ],
   rules: {
     quotes: ["warn", "double"],
     "no-undef-init": "off",
@@ -28,5 +29,9 @@ module.exports = {
     "no-loop-func": "off",
     "no-plusplus": "off",
     "max-len": ["warn", { code: 80 }],
+    "no-extra-parens": "off",
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
+    "no-redeclare": "off",
   },
 };

@@ -1,5 +1,18 @@
 /* eslint-disable import/no-unused-modules */
 
+import nil from "./helpers/nil";
+
+type State = {
+  completed: number,
+  mistakes: number,
+  text: string,
+  checkpoints: {
+    completed: number;
+    time: number;
+    mistakes: number;
+  }[],
+};
+
 async function run() {
   document.documentElement.innerHTML = "";
   document.body.style.margin = "0";
@@ -22,16 +35,16 @@ async function run() {
   container.append(iframeContainer);
   container.append(display);
 
-  const state = {
+  const state: State = {
     completed: 0,
     mistakes: 0,
     text: "",
     checkpoints: [],
   };
 
-  let startTime = undefined;
+  let startTime: number | nil = nil;
 
-  function renderTime(time, mistakes) {
+  function renderTime(time: number, mistakes: number) {
     time += mistakes * 60000;
     const min = Math.floor(time / 60000);
     const sec = Math.floor((time - 60000 * min) / 1000);
@@ -49,9 +62,11 @@ async function run() {
       `completed: ${state.completed}`,
       `mistakes: ${state.mistakes}`,
       ...state.checkpoints.map(
-        ([n,
-          t,
-          m]) => `  ${n}: ${renderTime(t, m)} (${m})`,
+        ({ completed, time, mistakes }) => `  ${[
+          `${completed}: `,
+          renderTime(time, mistakes),
+          ` (${mistakes})`,
+        ].join(" ")}`,
       ),
     ].join("\n");
   }
@@ -79,16 +94,16 @@ async function run() {
   while (true) {
     activeIframe.style.display = "";
 
-    let doc = activeIframe.contentDocument;
+    let doc = activeIframe.contentDocument!;
 
     state.text = "detecting load...";
     render();
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       if (doc.querySelector("#status")) {
         resolve();
       } else {
-        activeIframe.addEventListener("load", resolve);
+        activeIframe.addEventListener("load", () => resolve());
       }
     });
 
@@ -97,9 +112,13 @@ async function run() {
 
     startTime = startTime ?? Date.now();
 
-    doc = activeIframe.contentDocument;
-    const resetBtn = doc.querySelector(".tsumegoNavi-middle").children[1];
-    const nextBtn = doc.querySelector(".tsumegoNavi-middle").children[2];
+    doc = activeIframe.contentDocument!;
+    const resetBtn = doc.querySelector(".tsumegoNavi-middle")!.children[1];
+
+    const nextBtn = (doc
+      .querySelector(".tsumegoNavi-middle")!
+      .children[2] as HTMLAnchorElement
+    );
 
     const bufferIframe = Iframe();
 
@@ -113,16 +132,16 @@ async function run() {
     state.text = "detecting completion...";
     render();
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       const observer = new MutationObserver(() => {
-        if (doc.querySelector("#status").textContent === "Correct!") {
+        if (doc!.querySelector("#status")!.textContent === "Correct!") {
           observer.disconnect();
           resolve();
         }
       });
 
       observer.observe(
-        doc.querySelector("#status"),
+        doc!.querySelector("#status")!,
         { attributes: true, childList: true, subtree: true },
       );
     });
@@ -131,11 +150,11 @@ async function run() {
     state.completed++;
 
     if (state.completed % 50 === 0) {
-      state.checkpoints.push([
-        state.completed,
-        Date.now() - startTime,
-        state.mistakes,
-      ]);
+      state.checkpoints.push({
+        completed: state.completed,
+        time: Date.now() - startTime,
+        mistakes: state.mistakes,
+      });
     }
 
     render();
