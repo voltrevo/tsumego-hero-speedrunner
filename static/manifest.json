@@ -29,7 +29,7 @@
   },
 
   "content_scripts": [{
-    "matches": ["https://tsumego-hero.com/*"],
+    "matches": ["https://tsumego-hero.com/sets/view/*"],
     "js": ["contentScript.bundle.js"],
     "run_at": "document_end"
   }]

@@ -37,5 +37,8 @@ module.exports = {
     "import/no-nodejs-modules": "off",
     "no-process-env": "off",
     "no-ternary": "off",
+
+    // Doesn't work with typescript?
+    "import/no-unused-modules": "off",
   },
 };
