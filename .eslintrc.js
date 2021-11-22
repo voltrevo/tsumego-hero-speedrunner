@@ -6,6 +6,7 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
+    node: true,
   },
   parser: "@typescript-eslint/parser",
   plugins: [
@@ -33,5 +34,8 @@ module.exports = {
     "import/no-unresolved": "off",
     "import/extensions": "off",
     "no-redeclare": "off",
+    "import/no-nodejs-modules": "off",
+    "no-process-env": "off",
+    "no-ternary": "off",
   },
 };

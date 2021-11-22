@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --max-warnings 0 .",
     "build": "rm -rf dist && tsc",
-    "watch": "rm -rf dist && tsc --watch"
+    "watch-tsc": "tsc -w --pretty",
+    "watch-webpack": "webpack -w",
+    "watch": "rm -rf build && concurrently npm:watch-*"
   },
   "repository": {
     "type": "git",
@@ -28,14 +30,17 @@
     "url": "https://github.com/voltrevo/tsumego-hero-speedrunner/issues"
   },
   "homepage": "https://github.com/voltrevo/tsumego-hero-speedrunner#readme",
-  "dependencies": {
-  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.4.0",
-    "eslint-config-airbnb-as-warnings": "^0.1.0",
     "@typescript-eslint/parser": "^5.4.0",
+    "concurrently": "^6.4.0",
+    "copy-webpack-plugin": "^10.0.0",
     "eslint": "^8.3.0",
     "eslint-config-airbnb": "^19.0.0",
-    "typescript": "^4.5.2"
+    "eslint-config-airbnb-as-warnings": "^0.1.0",
+    "source-map-loader": "^3.0.0",
+    "typescript": "^4.5.2",
+    "webpack": "^5.64.2",
+    "webpack-cli": "^4.9.1"
   }
 }
