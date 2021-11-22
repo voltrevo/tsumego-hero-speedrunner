@@ -3,6 +3,10 @@ module.exports = {
   extends: [
     "airbnb-as-warnings",
   ],
+  env: {
+    browser: true,
+    es6: true,
+  },
   parserOptions: {
     ecmaVersion: 2021,
   },
