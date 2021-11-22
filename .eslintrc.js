@@ -43,5 +43,7 @@ module.exports = {
 
     "newline-after-var": "off",
     "newline-before-return": "off",
+    "id-length": "off",
+    "no-negated-condition": "off",
   },
 };

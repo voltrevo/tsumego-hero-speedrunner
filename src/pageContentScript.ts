@@ -22,9 +22,16 @@ speedrunBtn.href = "#";
 speedrunBtn.textContent = "Speedrun";
 
 speedrunBtn.addEventListener("click", () => {
-  if (window.location.pathname === "/sets/view/104") {
-    run();
-  }
+  const problemUrls = (Array
+    .from(document.querySelectorAll(".homeRight li > a"))
+    .map((el) => (el as HTMLAnchorElement).href)
+  );
+
+  run(problemUrls).catch((error) => {
+    setTimeout(() => {
+      throw error;
+    });
+  });
 });
 
 export {};

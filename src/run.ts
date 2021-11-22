@@ -1,6 +1,7 @@
 /* eslint-disable import/no-unused-modules */
 
 import nil from "./helpers/nil";
+import shuffle from "./helpers/shuffle";
 
 type State = {
   completed: number,
@@ -13,7 +14,10 @@ type State = {
   }[],
 };
 
-export default async function run() {
+export default async function run(problemUrls: string[]) {
+  problemUrls = shuffle(problemUrls);
+  let problemUrlIndex = 0;
+
   document.documentElement.innerHTML = "";
   document.body.style.margin = "0";
 
@@ -73,8 +77,6 @@ export default async function run() {
 
   render();
 
-  const startPage = "https://tsumego-hero.com/tsumegos/play/10207";
-
   function Iframe() {
     const iframe = document.createElement("iframe");
 
@@ -89,7 +91,7 @@ export default async function run() {
 
   let activeIframe = Iframe();
 
-  activeIframe.src = startPage;
+  activeIframe.src = problemUrls[problemUrlIndex++];
 
   while (true) {
     activeIframe.style.display = "";
@@ -143,14 +145,15 @@ export default async function run() {
     doc = activeIframe.contentDocument!;
     const resetBtn = doc.querySelector(".tsumegoNavi-middle")!.children[1];
 
-    const nextBtn = (doc
-      .querySelector(".tsumegoNavi-middle")!
-      .children[2] as HTMLAnchorElement
-    );
-
     const bufferIframe = Iframe();
 
-    bufferIframe.src = nextBtn.href;
+    const nextProblemUrl = problemUrls[problemUrlIndex++];
+
+    if (nextProblemUrl !== nil) {
+      bufferIframe.src = problemUrls[problemUrlIndex++];
+    } else {
+      // Show finish screen
+    }
 
     resetBtn.addEventListener("click", () => {
       state.mistakes++;
