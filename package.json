@@ -4,7 +4,10 @@
   "description": "Speedrunning mod for tsumego-hero.com",
   "main": "dist/src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --max-warnings 0 .",
+    "build": "rm -rf dist && tsc",
+    "watch": "rm -rf dist && tsc --watch"
   },
   "repository": {
     "type": "git",
