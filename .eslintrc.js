@@ -27,5 +27,6 @@ module.exports = {
     "no-await-in-loop": "off",
     "no-loop-func": "off",
     "no-plusplus": "off",
+    "max-len": ["warn", { code: 80 }],
   },
 };
