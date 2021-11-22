@@ -1,0 +1,36 @@
+{
+  "name": "tsumego-hero-speedrunner",
+  "version": "0.0.0",
+  "description": "Speedrunning mod for tsumego-hero.com",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/voltrevo/tsumego-hero-speedrunner.git"
+  },
+  "keywords": [
+    "go",
+    "baduk",
+    "weiqi",
+    "tsumego",
+    "hero",
+    "speedrunning",
+    "mod"
+  ],
+  "author": "Andrew Morris",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/voltrevo/tsumego-hero-speedrunner/issues"
+  },
+  "homepage": "https://github.com/voltrevo/tsumego-hero-speedrunner#readme",
+  "dependencies": {
+    "eslint": "^8.3.0",
+    "eslint-config-airbnb": "^19.0.0",
+    "typescript": "^4.5.2"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb-as-warnings": "^0.1.0"
+  }
+}
