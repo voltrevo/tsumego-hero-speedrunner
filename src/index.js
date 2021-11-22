@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unused-modules */
+
 async function run() {
   document.documentElement.innerHTML = "";
   document.body.style.margin = "0";
@@ -142,3 +144,7 @@ async function run() {
     activeIframe = bufferIframe;
   }
 }
+
+run();
+
+export {};
