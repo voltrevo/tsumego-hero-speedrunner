@@ -3,9 +3,13 @@
 
   "name": "Tsumego Hero Speedrunner",
   "description": "Adds speedrunning features to tsumego-hero.com",
-  "version": "0.0.0",
-
-  "icons": {},
+  "version": "1.0.0",
+  
+  "icons": {
+    "48": "assets/icons/icon48.png",
+    "96": "assets/icons/icon96.png",
+    "192": "assets/icons/icon192.png"
+  },
 
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
