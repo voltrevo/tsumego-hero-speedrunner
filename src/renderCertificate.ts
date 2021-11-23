@@ -21,6 +21,9 @@ export default async function renderCertificate(props: {
 
   const ctx = canvas.getContext("2d")!;
 
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
   // Create gradient
   const grd = ctx.createLinearGradient(0, 0, canvas.width, 0);
   grd.addColorStop(0, "hsl(180deg 100% 50% / 20%)");
