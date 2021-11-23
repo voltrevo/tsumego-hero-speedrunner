@@ -40,7 +40,6 @@ export default async function run(
   const container = document.createElement("div");
 
   container.style.display = "flex";
-  container.style.flexDirection = "row";
   document.body.append(container);
 
   const iframeContainer = document.createElement("div");
@@ -49,7 +48,8 @@ export default async function run(
   iframeContainer.style.width = "1380px";
   iframeContainer.style.height = "100vh";
   iframeContainer.style.display = "flex";
-  iframeContainer.style.justifyContent = "center";
+  iframeContainer.style.flexDirection = "column";
+  iframeContainer.style.alignItems = "center";
   display.style.flexGrow = "1";
   display.style.flexBasis = "0";
   display.style.padding = "1em";
@@ -236,4 +236,23 @@ export default async function run(
   canvas.style.border = "1px solid rgba(0, 0, 0, 0.1)";
 
   certContainer.append(canvas);
+
+  const downloadDivContainer = Element("div", { textAlign: "center" });
+
+  const downloadDiv = Element("div", {
+    border: "1px solid rgba(0, 0, 0, 0.5)",
+    padding: "5px",
+    borderRadius: "5px",
+    marginTop: "5px",
+    fontFamily: "sans-serif",
+    display: "inline-block",
+    backgroundColor: "hsl(202deg 100% 57% / 21%)",
+    cursor: "pointer",
+  });
+
+  downloadDiv.textContent = "⬇️ Download";
+
+  downloadDivContainer.append(downloadDiv);
+
+  certContainer.append(downloadDivContainer);
 }
