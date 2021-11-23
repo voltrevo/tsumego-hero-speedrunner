@@ -164,7 +164,7 @@ export default async function run(
 
     const bufferIframe = Iframe();
 
-    const nextProblemUrl = problems[i + 1].url;
+    const nextProblemUrl = problems[i + 1]?.url;
 
     if (nextProblemUrl !== nil) {
       bufferIframe.src = nextProblemUrl;
