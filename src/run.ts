@@ -1,3 +1,4 @@
+import Element from "./helpers/Element";
 import nil from "./helpers/nil";
 import renderCertificate from "./renderCertificate";
 import renderProblemStats from "./renderProblemStats";
@@ -45,7 +46,6 @@ export default async function run(problemSetName: string, problems: Problem[]) {
   iframeContainer.style.height = "100vh";
   iframeContainer.style.display = "flex";
   iframeContainer.style.justifyContent = "center";
-  iframeContainer.style.alignItems = "center";
   display.style.flexGrow = "1";
   display.style.flexBasis = "0";
   display.style.padding = "1em";
@@ -66,6 +66,7 @@ export default async function run(problemSetName: string, problems: Problem[]) {
   function render() {
     display.innerHTML = "";
     const pre = document.createElement("pre");
+    pre.style.margin = "0";
 
     display.append(pre);
     pre.textContent = [
@@ -214,6 +215,11 @@ export default async function run(problemSetName: string, problems: Problem[]) {
 
   // eslint-disable-next-line require-atomic-updates
   iframeContainer.innerHTML = "";
+  iframeContainer.style.padding = "1em";
+
+  const certContainer = Element("div");
+
+  iframeContainer.append(certContainer);
 
   const canvas = await renderCertificate({
     problemSetName,
@@ -222,5 +228,7 @@ export default async function run(problemSetName: string, problems: Problem[]) {
     finishTime: Date.now(),
   });
 
-  iframeContainer.append(canvas);
+  canvas.style.border = "1px solid rgba(0, 0, 0, 0.1)";
+
+  certContainer.append(canvas);
 }
