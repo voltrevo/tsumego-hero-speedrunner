@@ -255,4 +255,11 @@ export default async function run(
   downloadDivContainer.append(downloadDiv);
 
   certContainer.append(downloadDivContainer);
+
+  downloadDiv.onclick = () => {
+    const link = document.createElement("a");
+    link.download = `th-speedrunner-cert-${Date.now()}.png`;
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  };
 }
