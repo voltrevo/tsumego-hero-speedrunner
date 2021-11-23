@@ -39,7 +39,7 @@ export default async function renderCertificate(props: {
   ctx.textBaseline = "middle";
 
   ctx.font = "20px serif";
-  ctx.fillText("I completed Tsumego Hero's", 640, y);
+  ctx.fillText("I completed", 640, y);
   y += 0.95 * textGap;
 
   const subtitleRiser = props.subtitle ? 20 : 0;
