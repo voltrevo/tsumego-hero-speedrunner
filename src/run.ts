@@ -107,7 +107,7 @@ export default async function run(
 
   activeIframe.src = problems[0].url;
 
-  for (let i = problems.length; i < problems.length; i++) {
+  for (let i = 0; i < problems.length; i++) {
     activeIframe.style.display = "";
 
     let doc = activeIframe.contentDocument!;
