@@ -27,7 +27,11 @@ export type Problem = {
   url: string;
 };
 
-export default async function run(problemSetName: string, problems: Problem[]) {
+export default async function run(
+  problemSetName: string,
+  problemSetSubtitle: string | undefined,
+  problems: Problem[],
+) {
   problems = shuffle(problems);
 
   document.documentElement.innerHTML = "";
@@ -103,7 +107,7 @@ export default async function run(problemSetName: string, problems: Problem[]) {
 
   activeIframe.src = problems[0].url;
 
-  for (let i = 0; i < problems.length; i++) {
+  for (let i = problems.length; i < problems.length; i++) {
     activeIframe.style.display = "";
 
     let doc = activeIframe.contentDocument!;
@@ -222,7 +226,8 @@ export default async function run(problemSetName: string, problems: Problem[]) {
   iframeContainer.append(certContainer);
 
   const canvas = await renderCertificate({
-    problemSetName,
+    title: problemSetName,
+    subtitle: problemSetSubtitle,
     duration: Date.now() - startTime!,
     mistakes: state.mistakes,
     finishTime: Date.now(),

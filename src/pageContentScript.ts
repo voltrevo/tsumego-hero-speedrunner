@@ -1,5 +1,6 @@
 import ProblemSetName from "./ProblemSetName";
 import assert from "./helpers/assert";
+import nil from "./helpers/nil";
 import run from "./run";
 
 const startButtons = (Array
@@ -33,7 +34,11 @@ speedrunBtn.addEventListener("click", () => {
     }))
   );
 
-  run(problemSetName, problems).catch((error) => {
+  run(
+    problemSetName,
+    document.querySelector(".homeLeft > .title4date")?.textContent ?? nil,
+    problems,
+  ).catch((error) => {
     setTimeout(() => {
       throw error;
     });

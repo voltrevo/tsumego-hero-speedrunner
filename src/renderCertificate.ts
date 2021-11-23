@@ -1,7 +1,8 @@
 import renderTime from "./renderTime";
 
 export default async function renderCertificate(props: {
-  problemSetName: string;
+  title: string;
+  subtitle?: string;
   duration: number;
   mistakes: number;
   finishTime: number;
@@ -41,8 +42,16 @@ export default async function renderCertificate(props: {
   ctx.fillText("I completed Tsumego Hero's", 640, y);
   y += 0.95 * textGap;
 
+  const subtitleRiser = props.subtitle ? 20 : 0;
+
   ctx.font = "95px 'Great Vibes'";
-  ctx.fillText(fixName(props.problemSetName), 640, y);
+  ctx.fillText(fixName(props.title), 640, y - subtitleRiser);
+
+  if (props.subtitle) {
+    ctx.font = "20px serif";
+    ctx.fillText(props.subtitle, 640, y - subtitleRiser + 60);
+  }
+
   y += 0.75 * textGap;
 
   ctx.font = "20px serif";
