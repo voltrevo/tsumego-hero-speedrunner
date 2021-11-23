@@ -55,5 +55,13 @@ module.exports = {
 
     "multiline-ternary": "off",
     "multiline-comment-style": "off",
+
+    "array-element-newline": [
+      "warn",
+      {
+        ArrayExpression: "consistent",
+        ArrayPattern: "consistent",
+      },
+    ],
   },
 };

@@ -42,7 +42,7 @@ export default async function renderCertificate(props: {
   y += 0.95 * textGap;
 
   ctx.font = "95px 'Great Vibes'";
-  ctx.fillText(props.problemSetName, 640, y);
+  ctx.fillText(fixName(props.problemSetName), 640, y);
   y += 0.75 * textGap;
 
   ctx.font = "20px serif";
@@ -85,4 +85,25 @@ export default async function renderCertificate(props: {
   );
 
   return canvas;
+}
+
+function fixName(name: string) {
+  const lastWordMap = {
+    I: "1",
+    II: "2",
+    III: "3",
+    IV: "4",
+  };
+
+  const words = name.split(" ");
+  const lastWord = words[words.length - 1];
+
+  if (lastWord in lastWordMap) {
+    return [
+      ...words.slice(0, words.length - 1),
+      lastWordMap[lastWord as keyof typeof lastWordMap],
+    ].join(" ");
+  }
+
+  return name;
 }
