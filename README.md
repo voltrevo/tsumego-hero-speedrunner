@@ -1,6 +1,6 @@
 # Tsumego Hero Speedrunner
 
-Adds speedrunning features to tsumego-hero.com.
+Adds speedrunning features to [tsumego-hero.com](https://tsumego-hero.com/).
 
 - Simply click `SPEEDRUN` instead of `START` on a problem set page
 - Randomizes the problem set (so you recognize the shape, not the problem order)
