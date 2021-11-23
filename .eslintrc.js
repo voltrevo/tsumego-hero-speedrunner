@@ -54,5 +54,6 @@ module.exports = {
     "no-undef": "off",
 
     "multiline-ternary": "off",
+    "multiline-comment-style": "off",
   },
 };

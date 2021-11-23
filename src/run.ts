@@ -1,4 +1,5 @@
 import nil from "./helpers/nil";
+import renderCertificate from "./renderCertificate";
 import renderProblemStats from "./renderProblemStats";
 import renderTime from "./renderTime";
 import shuffle from "./helpers/shuffle";
@@ -25,9 +26,8 @@ export type Problem = {
   url: string;
 };
 
-export default async function run(problems: Problem[]) {
+export default async function run(problemSetName: string, problems: Problem[]) {
   problems = shuffle(problems);
-  let problemIndex = 0;
 
   document.documentElement.innerHTML = "";
   document.body.style.margin = "0";
@@ -43,6 +43,9 @@ export default async function run(problems: Problem[]) {
 
   iframeContainer.style.width = "1380px";
   iframeContainer.style.height = "100vh";
+  iframeContainer.style.display = "flex";
+  iframeContainer.style.justifyContent = "center";
+  iframeContainer.style.alignItems = "center";
   display.style.flexGrow = "1";
   display.style.flexBasis = "0";
   display.style.padding = "1em";
@@ -97,9 +100,9 @@ export default async function run(problems: Problem[]) {
 
   let activeIframe = Iframe();
 
-  activeIframe.src = problems[problemIndex++].url;
+  activeIframe.src = problems[0].url;
 
-  while (true) {
+  for (let i = 0; i < problems.length; i++) {
     activeIframe.style.display = "";
 
     let doc = activeIframe.contentDocument!;
@@ -119,7 +122,6 @@ export default async function run(problems: Problem[]) {
     render();
 
     const problemStart = Date.now();
-    const currentProblem = problems[problemIndex];
     let currentProblemMistakes = 0;
 
     const activePath = activeIframe.contentWindow!.location.pathname;
@@ -157,12 +159,10 @@ export default async function run(problems: Problem[]) {
 
     const bufferIframe = Iframe();
 
-    const nextProblemUrl = problems[problemIndex++].url;
+    const nextProblemUrl = problems[i + 1].url;
 
     if (nextProblemUrl !== nil) {
       bufferIframe.src = nextProblemUrl;
-    } else {
-      // Show finish screen
     }
 
     resetBtn.addEventListener("click", () => {
@@ -200,8 +200,8 @@ export default async function run(problems: Problem[]) {
     }
 
     state.problemStats.push({
-      url: currentProblem.url,
-      name: currentProblem.name,
+      url: problems[i].url,
+      name: problems[i].name,
       time: Date.now() - problemStart,
       mistakes: currentProblemMistakes,
     });
@@ -211,4 +211,16 @@ export default async function run(problems: Problem[]) {
     activeIframe.remove();
     activeIframe = bufferIframe;
   }
+
+  // eslint-disable-next-line require-atomic-updates
+  iframeContainer.innerHTML = "";
+
+  const canvas = await renderCertificate({
+    problemSetName,
+    duration: Date.now() - startTime!,
+    mistakes: state.mistakes,
+    finishTime: Date.now(),
+  });
+
+  iframeContainer.append(canvas);
 }

@@ -33,7 +33,7 @@ speedrunBtn.addEventListener("click", () => {
     }))
   );
 
-  run(problems).catch((error) => {
+  run(problemSetName, problems).catch((error) => {
     setTimeout(() => {
       throw error;
     });
