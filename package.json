@@ -39,7 +39,7 @@
     "eslint-config-airbnb": "^19.0.0",
     "eslint-config-airbnb-as-warnings": "^0.1.0",
     "source-map-loader": "^3.0.0",
-    "typescript": "^4.5.2",
+    "typescript": "^5.2.2",
     "webpack": "^5.64.2",
     "webpack-cli": "^4.9.1"
   },

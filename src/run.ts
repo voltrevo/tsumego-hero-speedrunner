@@ -1,4 +1,5 @@
 import Element from "./helpers/Element";
+import delay from "./helpers/delay";
 import nil from "./helpers/nil";
 import renderCertificate from "./renderCertificate";
 import renderProblemStats from "./renderProblemStats";
@@ -160,7 +161,25 @@ export default async function run(
     startTime = startTime ?? Date.now();
 
     doc = activeIframe.contentDocument!;
-    const resetBtn = doc.querySelector(".tsumegoNavi-middle")!.children[1];
+
+    let resetBtn;
+    let failedAttempts = 0;
+
+    while (true) {
+      resetBtn = doc.querySelector("#besogo-reset-button")!;
+
+      if (resetBtn) {
+        break;
+      }
+
+      failedAttempts++;
+
+      if (failedAttempts > 50) {
+        throw new Error("Couldn't find #besogo-reset-button");
+      }
+
+      await delay(200);
+    }
 
     const bufferIframe = Iframe();
 

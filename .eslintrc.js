@@ -63,5 +63,7 @@ module.exports = {
         ArrayPattern: "consistent",
       },
     ],
+
+    "init-declarations": "off",
   },
 };
